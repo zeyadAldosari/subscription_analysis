@@ -7,22 +7,22 @@ services:
     env_file:
       - .env
     environment:
-      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_URL=${DATABASE_URL_SUB}
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      - sub_db
     volumes:
       - ./backend:/app/backend
     restart: always
     
-  db:
-    container_name: db
+  sub_db:
+    container_name: sub_db
     image: postgres:17.2-alpine
     env_file:
       - .env
     environment:
-      - POSTGRES_DB= ${POSTGRES_DB}
+      - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
@@ -30,7 +30,7 @@ services:
     restart: always
 
   adminerevo:
-    container_name: adminerevo
+    container_name: sub_adminerevo
     image: shyim/adminerevo:latest
     restart: always
     ports:
