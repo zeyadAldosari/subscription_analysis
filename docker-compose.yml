@@ -1,0 +1,37 @@
+services:
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app/backend
+    restart: always
+    
+  db:
+    container_name: db
+    image: postgres:17.2-alpine
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB= ${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5433:5432"
+    restart: always
+
+  adminerevo:
+    container_name: adminerevo
+    image: shyim/adminerevo:latest
+    restart: always
+    ports:
+      - "8888:8080"  

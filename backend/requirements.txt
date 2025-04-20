@@ -1,0 +1,11 @@
+asgiref==3.8.1
+colorama==0.4.6
+Django==5.2
+django-restframework==0.0.1
+iniconfig==2.1.0
+packaging==25.0
+pluggy==1.5.0
+pytest==8.3.5
+rest-framework-simplejwt==0.0.2
+sqlparse==0.5.3
+tzdata==2025.2
