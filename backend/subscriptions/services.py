@@ -1,7 +1,12 @@
+from io import TextIOWrapper
 from django.db.models import When, F, Case, DecimalField, Sum, QuerySet
 from typing import Optional
 from .models import Subscription
+from .serializers import SubscriptionSerializer
 from decimal import Decimal
+import csv
+from django.core.exceptions import ValidationError
+from django.db import transaction
 
 class SubscriptionService:
     
@@ -61,3 +66,23 @@ class SubscriptionService:
         )
         return services_costs
         
+    @staticmethod
+    def process_csv(file, user):
+        processed_subscriptions = []
+        with transaction.atomic():
+            text_file = TextIOWrapper(file, encoding='utf-8-sig')            
+            reader = csv.DictReader(text_file)
+            for i, row in enumerate(reader, start=1):
+                clean_row = {k: v.strip() for k, v in row.items()}
+                clean_row['renewal_type'] = clean_row['renewal_type'].lower()
+                subscription = SubscriptionSerializer(data=clean_row)
+                if not subscription.is_valid():
+                    raise Exception(f"Invalid data in row {i}: {subscription.errors}")
+                instance = subscription.save(user=user)
+                try:
+                    instance.clean()
+                except ValidationError as e:
+                    instance.delete()
+                    raise Exception(f"Validation error in row {i}: {str(e)}")                
+                processed_subscriptions.append(SubscriptionSerializer(instance).data)
+        return processed_subscriptions

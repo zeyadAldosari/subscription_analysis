@@ -51,3 +51,21 @@ def get_subscription_statistics(request):
         return Response(statistics, status=200)
     except Exception as e:
         return Response({'error': str(e)}, status=500)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def csv_bulk_upload(request):
+    try:
+        file = request.FILES.get('file')
+        if not file:
+            return Response({'error': 'No file provided'}, status=400)
+        if not file.name.endswith('.csv'):
+            return Response({'error': 'File is not a CSV'}, status=400)
+        
+        processed_subscriptions = SubscriptionService.process_csv(file, request.user)
+        return Response({
+            'message': f'imported {len(processed_subscriptions)} subscriptions',
+            'subscriptions': processed_subscriptions
+        }, status=201)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
