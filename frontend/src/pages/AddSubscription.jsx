@@ -129,7 +129,7 @@ function AddSubscription() {
           </label>
           <div className="relative mt-1 rounded-md shadow-sm">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-slate-400">$</span>
+              <span className="text-slate-400">SAR </span>
             </div>
             <input
               type="number"
@@ -140,7 +140,7 @@ function AddSubscription() {
               placeholder="0.00"
               step="0.01"
               min="0.01"
-              className="w-full pl-7 pr-3 py-3 bg-slate-700 border border-slate-600 text-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent placeholder-slate-400 transition-colors"
+              className="w-full pl-12 pr-3 py-3 bg-slate-700 border border-slate-600 text-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent placeholder-slate-400 transition-colors"
               required
             />
           </div>

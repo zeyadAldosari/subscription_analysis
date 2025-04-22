@@ -124,7 +124,7 @@ function Dashboard() {
             Total Monthly Spend
           </h3>
           <p className="mt-2 text-3xl font-bold text-teal-400">
-            ${stats.monthly_cost}
+            SAR {stats.monthly_cost}
           </p>
         </div>
         <div className="bg-slate-800 p-6 rounded-lg shadow-md">
@@ -132,7 +132,7 @@ function Dashboard() {
             Total Annual Spend
           </h3>
           <p className="mt-2 text-3xl font-bold text-teal-400">
-            ${stats.yearly_cost}
+            SAR {stats.yearly_cost}
           </p>
         </div>
         <div className="bg-slate-800 p-6 rounded-lg shadow-md">
@@ -159,7 +159,7 @@ function Dashboard() {
               <YAxis stroke="#CBD5E1" />
               <Tooltip
                 cursor={{ fill: "rgba(15, 23, 42, 0.3)" }}
-                formatter={(value) => [`$${value.toFixed(2)}`, "Monthly Cost"]}
+                formatter={(value) => [`SAR ${value.toFixed(2)}`, "Monthly Cost"]}
                 contentStyle={{
                   backgroundColor: "#0F172A",
                   color: "#E2E8F0",
@@ -319,7 +319,7 @@ function Dashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-slate-300">
-                          ${subscription.cost} / {subscription.renewal_type}
+                          SAR {subscription.cost} / {subscription.renewal_type}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -385,7 +385,7 @@ function Dashboard() {
                     <span className="font-semibold">{sub.name}:</span> If you
                     switch from Monthly to Annual, you'll save{" "}
                     <span className="text-teal-300 font-bold">
-                      ${savings.toFixed(2)}/year
+                      SAR {savings.toFixed(2)}/year
                     </span>
                   </p>
                 </div>
